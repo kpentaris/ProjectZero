@@ -1,0 +1,17 @@
+{
+  "name": "project-zero",
+  "version": "1.0.0",
+  "description": "First game project to be fully published in all major platforms",
+  "main": "main.js",
+  "dependencies": {
+    "requirejs": "^2.3.3"
+  },
+  "devDependencies": {
+    "file-loader": "^0.10.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "PentaKon",
+  "license": "ISC"
+}
