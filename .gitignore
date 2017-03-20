@@ -3,3 +3,4 @@ node_modules/**
 scripts/**/*.js
 scripts/**/*.js.map
 *.iml
+dist/**
