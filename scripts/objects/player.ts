@@ -11,7 +11,7 @@ import {Updateable} from "./interfaces/Updateable";
 class Player implements Drawable, Updateable {
   private _canvas: HTMLCanvasElement;
   private _ctx: CanvasRenderingContext2D;
-  private readonly _sprites;
+  private readonly _sprites; //private readonly _sprites: { [s: string]: Sprite[]; };
 
   private _currentAnimationFrame: number;
 
