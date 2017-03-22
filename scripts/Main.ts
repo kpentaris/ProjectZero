@@ -4,6 +4,7 @@
 
 import GameObject from "./objects/gameObject";
 import Player from "./objects/player";
+import AssetLoader from "./utils/AssetLoader";
 
 let globalGame: GameObject = (function main(): GameObject {
   let canvas: HTMLCanvasElement = document.createElement("canvas");
@@ -27,8 +28,9 @@ let globalGame: GameObject = (function main(): GameObject {
   document.body.appendChild(canvas);
 
   context.fillStyle = "#70C5CF";
-  player.initSprites();
-  run();
+
+  AssetLoader.getLoader().loadAllAssets()
+    .then((assets) => {run()});
 
   return game;
 })();

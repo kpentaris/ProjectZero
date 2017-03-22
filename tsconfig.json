@@ -8,6 +8,6 @@
     "scripts/**/*"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules", "js", "dist", "assets", "build"
   ]
 }

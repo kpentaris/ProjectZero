@@ -1,3 +1,9 @@
+const WebpackShellPlugin = require('webpack-shell-plugin');
+var addAssets = new WebpackShellPlugin({
+    onBuildStart: ['node build/processAssets.js'],
+    onBuildEnd: []
+});
+
 module.exports = {
     resolve: {
         extensions: ['.ts', '.tsx', '.js', '.webpack.js']
@@ -26,7 +32,7 @@ module.exports = {
     },
     watch: true,
     devtool: "source-map",
-
+    plugins: [addAssets],
     devServer: {
     }
 };

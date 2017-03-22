@@ -28,11 +28,20 @@ export default class AssetLoader {
   }
 
   public async getAsset(assetKey: string): Promise<HTMLImageElement> {
-    if (this._assets.get(assetKey) != null)
+    if(this._assets.get(assetKey) != null)
       return this._assets.get(assetKey);
 
-    await this.loadAsset(this._assetUrls.get(assetKey));
+    await this.loadAsset(assetKey, this._assetUrls.get(assetKey));
     return this._assets.get(assetKey);
+  }
+
+  public async getAssets(assetKeys: string[]): Promise<HTMLImageElement[]> {
+    let assets: HTMLImageElement[] = [];
+    for (let index = 0; index < assetKeys.length; index++) {
+      let asset: HTMLImageElement = await this.getAsset(assetKeys[index]);
+      assets.push(asset);
+    }
+    return assets;
   }
 
   public getAssetURL(assetKey: string): string {
@@ -40,12 +49,12 @@ export default class AssetLoader {
   }
 
   public loadAllAssets(): Promise<Map<string, HTMLImageElement>> {
-    if (this._assetUrls.size == this._assets.size)
+    if(this._assetUrls.size == this._assets.size)
       return Promise.resolve(this._assets);
 
     return new Promise<Map<string, HTMLImageElement>>((resolve, reject) => {
-      this._assetUrls.forEach((value, index, map) => {
-        this.loadAsset(value);
+      this._assetUrls.forEach((value, key, map) => {
+        this.loadAsset(key, value);
       });
 
       let timeoutCount = 0;
@@ -64,12 +73,12 @@ export default class AssetLoader {
     });
   }
 
-  private async loadAsset(url: string) {
+  private async loadAsset(assetKey: string, url: string) {
     let extension = url.substring(url.lastIndexOf("."), url.length);
 
     if(extension.match(/\.(png|gif|jpe?g)$/)) { // TODO Move image extension regex to global readonly value
       let image: HTMLImageElement = await this.loadImage(url);
-      this._assets.set(url, image); // TODO Error handling for image loading failure
+      this._assets.set(assetKey, image); // TODO Error handling for image loading failure
     }
   }
 
