@@ -2,9 +2,7 @@
  * Created by Ntinos on 19/3/2017.
  */
 
-export {Sprite};
-
-class Sprite {
+export default class Sprite {
 
   private spriteX: number;
   private spriteY: number;

@@ -4,9 +4,8 @@
 
 import {Updateable} from "./interfaces/Updateable";
 import {Drawable} from "./interfaces/Drawable";
-export {GameObject};
 
-class GameObject {
+export default class GameObject {
   private _canvas: HTMLCanvasElement;
   private _ctx: CanvasRenderingContext2D;
   private _frames: number;

@@ -1,8 +1,7 @@
 /**
  * Created by Ntinos on 19/3/2017.
  */
-export {Drawable};
 
-interface Drawable {
+export interface Drawable {
   draw(): void;
 }

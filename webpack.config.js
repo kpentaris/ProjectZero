@@ -1,11 +1,11 @@
 module.exports = {
     resolve: {
-        extensions: ['.ts', '.tsx', '.js', '.config.js', '.png', '.gif']
+        extensions: ['.ts', '.tsx', '.js', '.webpack.js']
     },
     entry: './scripts/main.ts',
     output: {
-        path: __dirname + '/dist'/*,
-        filename: 'app.js'*/
+        path: __dirname + '/dist',
+        filename: 'app.js'
     },
     module: {
         /*rules: [
@@ -13,15 +13,15 @@ module.exports = {
         ],*/
         loaders: [
             {test: /\.tsx?$/, loader: 'ts-loader', exclude: /node_modules/},
-            {test: /\.css$/, loader: "style!css"},
+            {test: /\.css$/, loader: "style!css"}/*,
             {
                 test: /\.(svg|ttf|eot|woff)\?w\w+$/,
                 loader: "file-loader?name=/resources/[path][name].[ext]&context=./resources"
             },
             {
-                test: /\.png$|\.gif$|\.jpe?g$/,
-                loader: "file-loader?name=/resources/[path][name].[ext]"
-            }
+                test: /\.(png|gif|jpe?g)$/,
+                loader: "file-loader?name=./images/[path][name].[ext]"
+            }*/
         ]
     },
     watch: true,

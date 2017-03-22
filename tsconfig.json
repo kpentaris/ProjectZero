@@ -2,8 +2,7 @@
   "compilerOptions": {
     "module": "amd",
     "target": "es6",
-    "sourceMap": true,
-    "inlineSources": true
+    "sourceMap": true
   },
   "include": [
     "scripts/**/*"

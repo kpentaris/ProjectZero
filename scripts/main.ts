@@ -2,8 +2,8 @@
  * @author KPentaris - 18/3/2017.
  */
 
-import {GameObject} from "./objects/gameObject";
-import {Player} from "./objects/player";
+import GameObject from "./objects/gameObject";
+import Player from "./objects/player";
 
 let globalGame: GameObject = (function main(): GameObject {
   let canvas: HTMLCanvasElement = document.createElement("canvas");
@@ -27,7 +27,7 @@ let globalGame: GameObject = (function main(): GameObject {
   document.body.appendChild(canvas);
 
   context.fillStyle = "#70C5CF";
-  player.initSprites(null);
+  player.initSprites();
   run();
 
   return game;
@@ -54,5 +54,4 @@ function render() {
   globalGame.drawables.forEach(drawable => drawable.draw());
 }
 
-//POST-INIT EXPORTS
-export {globalGame};
+export default globalGame;
