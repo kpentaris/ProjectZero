@@ -14,7 +14,7 @@ export default class Player implements Drawable, Updateable {
 
   // TODO Change into centric file (.json). Key is animation name and value is sprites key array.
   private readonly _animationFrames: Map<string, string[]> = new Map([
-    ["idle", ["frame_0", "frame_1", "frame_2", "frame_3", "frame_4", "frame_5"]],
+    ["idle", ["idle_frame_0", "idle_frame_1", "idle_frame_2", "idle_frame_3", "idle_frame_4", "idle_frame_5"]],
     ["walking", ["frame_0", "frame_1", "frame_2", "frame_3", "frame_4", "frame_5"]]
   ]);
 
