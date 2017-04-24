@@ -3,7 +3,7 @@
  * date: 24-Apr-17
  */
 
-export let requestAnimationFrame = (function() {
+export let requestAnimationFrame: (loop: () => void) => void = (function() {
   return window.requestAnimationFrame ||
     window.webkitRequestAnimationFrame ||
     window.mozRequestAnimationFrame ||
