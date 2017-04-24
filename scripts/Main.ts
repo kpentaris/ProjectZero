@@ -5,6 +5,7 @@
 import GameObject from "./objects/gameObject";
 import Player from "./objects/player";
 import AssetLoader from "./utils/AssetLoader";
+import {requestAnimationFrame} from "./utils/Shims";
 
 let globalGame: GameObject = (function main(): GameObject {
   let canvas: HTMLCanvasElement = document.createElement("canvas");
@@ -30,7 +31,9 @@ let globalGame: GameObject = (function main(): GameObject {
   context.fillStyle = "#70C5CF";
 
   AssetLoader.getLoader().loadAllAssets()
-    .then((assets) => {run()});
+  .then((assets) => {
+    run()
+  });
 
   return game;
 })();
@@ -39,9 +42,9 @@ function run() {
   let mainLoop = function() {
     update();
     render();
-    window.requestAnimationFrame(mainLoop);
+    requestAnimationFrame(mainLoop);
   };
-  window.requestAnimationFrame(mainLoop);
+  requestAnimationFrame(mainLoop);
 }
 
 function update() {
