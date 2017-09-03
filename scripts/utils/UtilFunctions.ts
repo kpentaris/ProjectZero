@@ -1,7 +1,6 @@
 /**
- * Created by Ntinos on 23/3/2017.
- */
-
+  * @author KPentaris - 23/3/2017.
+  */
 export default class UtilFunctions {
   public static isNullOrUndefined(value: any): boolean {
     return UtilFunctions.isNull(value) || UtilFunctions.isUndefined(value);

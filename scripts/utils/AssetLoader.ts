@@ -54,7 +54,11 @@ export default class AssetLoader {
 
     return new Promise<Map<string, HTMLImageElement>>((resolve, reject) => {
       this._assetUrls.forEach((value, key, map) => {
-        this.loadAsset(key, value);
+        try {
+          this.loadAsset(key, value);
+        } catch(e) {
+          reject();
+        }
       });
 
       let timeoutCount = 0;
@@ -77,8 +81,8 @@ export default class AssetLoader {
     let extension = url.substring(url.lastIndexOf("."), url.length);
 
     if(extension.match(/\.(png|gif|jpe?g)$/)) { // TODO Move image extension regex to global readonly value
-      let image: HTMLImageElement = await this.loadImage(url);
-      this._assets.set(assetKey, image); // TODO Error handling for image loading failure
+      let image: HTMLImageElement = await this.loadImage(url); // will throw exception on reject
+      this._assets.set(assetKey, image);
     }
   }
 

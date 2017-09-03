@@ -1,0 +1,12 @@
+
+ - Create all animations (standing, running, jumping, getting hit)
+ * Add keyboard input and animation trigger
+ * Create scrolling background
+ - Optimize scrolling background
+ * Add character animation to background
+ - Add jumping animation
+ - Add level obstacles
+ - Add score board
+ - Add score mechanics
+ - Create landing page, game over page
+ - Edit all sprites to make them custom and Copyright proof

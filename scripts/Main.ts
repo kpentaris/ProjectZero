@@ -5,6 +5,8 @@
 import GameObject from "./objects/gameObject";
 import Player from "./objects/player";
 import AssetLoader from "./utils/AssetLoader";
+import ActionManager from "./objects/ActionManager";
+import Background from "./objects/Background";
 
 let globalGame: GameObject = (function main(): GameObject {
   let canvas: HTMLCanvasElement = document.createElement("canvas");
@@ -15,12 +17,15 @@ let globalGame: GameObject = (function main(): GameObject {
   }
 
   let context: CanvasRenderingContext2D = canvas.getContext("2d");
-
   let game: GameObject = new GameObject(canvas, context);
   let player: Player = new Player(canvas, context);
+  let background: Background = new Background(canvas, context);
+  let actionmanager: ActionManager = new ActionManager([player]);
 
   game.registerUpdateable(player);
+  game.registerUpdateable(background);
   game.registerDrawable(player);
+  game.registerDrawable(background);
 
   canvas.width = 320;
   canvas.height = 480;
@@ -32,28 +37,29 @@ let globalGame: GameObject = (function main(): GameObject {
   AssetLoader.getLoader().loadAllAssets()
     .then((assets) => {run()});
 
+  // Inside IIF to avoid state pollution
+  function run() {
+    let mainLoop = function() {
+      update();
+      render();
+      window.requestAnimationFrame(mainLoop);
+    };
+    window.requestAnimationFrame(mainLoop);
+  }
+
+  function update() {
+    globalGame.frames++;
+
+    globalGame.updateables.forEach(updateable => updateable.update());
+  }
+
+  function render() {
+    globalGame.ctx.fillRect(0, 0, globalGame.canvas.width, globalGame.canvas.height); // this cleans the canvas
+
+    globalGame.drawables.sort((a, b) => a.layer() < b.layer() ? 0 : 1).forEach(drawable => drawable.draw());
+  }
+
   return game;
 })();
-
-function run() {
-  let mainLoop = function() {
-    update();
-    render();
-    window.requestAnimationFrame(mainLoop);
-  };
-  window.requestAnimationFrame(mainLoop);
-}
-
-function update() {
-  globalGame.frames++;
-
-  globalGame.updateables.forEach(updateable => updateable.update());
-}
-
-function render() {
-  globalGame.ctx.fillRect(0, 0, globalGame.canvas.width, globalGame.canvas.height);
-
-  globalGame.drawables.forEach(drawable => drawable.draw());
-}
 
 export default globalGame;
