@@ -5,7 +5,7 @@
 import {Assets} from "../config/assets";
 /**
  * Asset loader utility singleton.
- * Handles loading allassets asynchronously
+ * Handles loading all assets asynchronously
  * in a correct manner.
  */
 export default class AssetLoader {
