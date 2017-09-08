@@ -2,9 +2,10 @@
  - Create all animations (standing, running, jumping, getting hit)
  * Add keyboard input and animation trigger
  * Create scrolling background
- - Optimize scrolling background
+ - Optimize scrolling background (needs higher resolution background but more pixelated)
  * Add character animation to background
- - Add jumping animation
+ * Add jumping animation
+ - Add collision detection
  - Add level obstacles
  - Add score board
  - Add score mechanics

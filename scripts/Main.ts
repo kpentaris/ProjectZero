@@ -7,6 +7,7 @@ import Player from "./objects/player";
 import AssetLoader from "./utils/AssetLoader";
 import ActionManager from "./objects/ActionManager";
 import Background from "./objects/Background";
+import {requestAnimationFrameShim} from "./utils/Shims";
 
 let globalGame: GameObject = (function main(): GameObject {
   let canvas: HTMLCanvasElement = document.createElement("canvas");
@@ -42,9 +43,9 @@ let globalGame: GameObject = (function main(): GameObject {
     let mainLoop = function() {
       update();
       render();
-      window.requestAnimationFrame(mainLoop);
+      requestAnimationFrameShim(mainLoop);
     };
-    window.requestAnimationFrame(mainLoop);
+    requestAnimationFrameShim(mainLoop);
   }
 
   function update() {

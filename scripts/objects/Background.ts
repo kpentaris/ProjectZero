@@ -39,7 +39,7 @@ export default class Background implements Drawable, Updateable {
     }
 
     this._xForestOffset++;
-    this._xSkyOffset += this._xForestOffset % 3 == 0 ? 1 : 0;
+    this._xSkyOffset += this._xForestOffset % 2 == 0 ? 1 : 0;
     this._xForestOffset %= this.baseBackgroundWidth;
     this._xSkyOffset %= this.baseBackgroundWidth;
   }

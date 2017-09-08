@@ -5,11 +5,12 @@ import {Drawable} from "./interfaces/Drawable";
 import {Updateable} from "./interfaces/Updateable";
 import {undef} from "../utils/UtilFunctions";
 import {Actionable} from "./interfaces/Actionable";
+import {Positionable} from "./interfaces/Positionable";
 
 /**
  * @author KPentaris - 18/3/2017.
  */
-export default class Player implements Drawable, Updateable, Actionable {
+export default class Player implements Drawable, Updateable, Positionable, Actionable {
 
   private readonly _updateFrameRate: number = 5; //TODO Not sure if readonly
 
@@ -30,11 +31,20 @@ export default class Player implements Drawable, Updateable, Actionable {
   private _currentSprite: string;
   private _currentAnimationFrame: number;
 
+  private readonly _startYVelocity = -10; // guessing this is in pixels of Y movement?
+  private readonly _gravity: number = 0.75; // guessing this is how many pixels player fals per frame?
+  private _yVelocity: number = 0;
+
+  currentXPosition: number = 20;
+  currentYPosition: number = 310;
+  nextXPosition: number = 20;
+  nextYPosition: number = 310;
+
   constructor(canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D) {
     this._canvas = canvas;
     this._ctx = ctx;
 
-    this._currentSprite = "idle";
+    this._currentSprite = "walking";
     this._currentAnimationFrame = 0;
     this._sprites = {};
 
@@ -64,7 +74,7 @@ export default class Player implements Drawable, Updateable, Actionable {
     if(!this._allImagesLoaded) {
       return;
     }
-
+    this.translate();
     // The modulus means to update the frame every X computed frames
     this._currentAnimationFrame += (globalGame.frames % this._updateFrameRate === 0 ? 1 : 0);
     this._currentAnimationFrame %= this._sprites[this._currentSprite].length;
@@ -85,9 +95,24 @@ export default class Player implements Drawable, Updateable, Actionable {
     this._ctx.save();
 
     let sprite = this._sprites[this._currentSprite][this._currentAnimationFrame];
-    sprite.draw(this._ctx, 20, 310);
+    sprite.draw(this._ctx, this.currentXPosition, this.currentYPosition);
 
     this._ctx.restore();
+  }
+
+  /**
+   * Changes the player's current position according to velocity
+   * and applies gravity to current speed
+   */
+  translate(): void {
+    this.nextYPosition += this._yVelocity;
+    this.currentYPosition = this.nextYPosition;
+    if (Math.round(this.currentYPosition) >= 310) { // TODO Change
+      this._yVelocity = 0;
+      this.nextYPosition = 310;
+    } else {
+      this._yVelocity += this._gravity;
+    }
   }
 
   /**
@@ -98,11 +123,8 @@ export default class Player implements Drawable, Updateable, Actionable {
    */
   action(): void {
     this._currentAnimationFrame = 0; // reset animation frame
-    if (this._currentSprite == "walking") {
-      this._currentSprite = "idle";
-    }
-    else {
-      this._currentSprite = "walking";
-    }
+    this._yVelocity = this._startYVelocity;
+    // TODO Set state as Mid-Jump and also change current sprite to jumping animation
   }
+
 }
