@@ -8,7 +8,7 @@ module.exports = {
     resolve: {
         extensions: ['.ts', '.tsx', '.js', '.webpack.js']
     },
-    entry: './scripts/main.ts',
+    entry: './scripts/Main.ts',
     output: {
         path: __dirname + '/dist',
         filename: 'app.js'

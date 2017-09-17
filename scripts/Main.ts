@@ -2,8 +2,8 @@
  * @author KPentaris - 18/3/2017.
  */
 
-import GameObject from "./objects/gameObject";
-import Player from "./objects/player";
+import GameObject from "./objects/GameObject";
+import Player from "./objects/Player";
 import AssetLoader from "./utils/AssetLoader";
 import ActionManager from "./objects/ActionManager";
 import Background from "./objects/Background";
@@ -21,8 +21,9 @@ let globalGame: GameObject = (function main(): GameObject {
   let game: GameObject = new GameObject(canvas, context);
   let player: Player = new Player(canvas, context);
   let background: Background = new Background(canvas, context);
-  let actionmanager: ActionManager = new ActionManager([player]);
+  let actionmanager: ActionManager = new ActionManager([player], canvas, context);
 
+  game.updateables = [];
   game.registerUpdateable(player);
   game.registerUpdateable(background);
   game.registerDrawable(player);

@@ -1,6 +1,6 @@
 /**
-  * @author KPentaris - 23/3/2017.
-  */
+ * @author KPentaris - 23/3/2017.
+ */
 export default class UtilFunctions {
   public static isNullOrUndefined(value: any): boolean {
     return UtilFunctions.isNull(value) || UtilFunctions.isUndefined(value);
@@ -55,6 +55,22 @@ export default class UtilFunctions {
 
   public static toStr(value: any): string {
     return UtilFunctions.isStringNonEmpty(value) ? value : value.toString();
+  }
+
+  public static shortestDistanceSum(shape: Map<number,number>, testShape: Map<number, number>): number {
+    let sum = 0;
+    shape.forEach((x, y) => {
+      let smallestDistance = 9999;
+      testShape.forEach((testX, testY) => {
+        smallestDistance = Math.min(smallestDistance, UtilFunctions.pointToPointDistance(x, y, testX, testY));
+      });
+      sum += smallestDistance;
+    });
+    return sum / shape.size;
+  }
+
+  private static pointToPointDistance(x: number, y: number, x1: number, y1: number): number {
+    return Math.sqrt(Math.pow(x1 - x, 2) + Math.pow(y1 - y, 2));
   }
 
 }

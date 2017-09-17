@@ -1,5 +1,5 @@
-import globalGame from "../main";
-import Sprite from "./sprite";
+import globalGame from "../Main";
+import Sprite from "./Sprite";
 import AssetLoader from "../utils/AssetLoader";
 import {Drawable} from "./interfaces/Drawable";
 import {Updateable} from "./interfaces/Updateable";
@@ -31,6 +31,7 @@ export default class Player implements Drawable, Updateable, Positionable, Actio
   private _currentSprite: string;
   private _currentAnimationFrame: number;
 
+  private _playerState: PlayerState;
   private readonly _startYVelocity = -10; // guessing this is in pixels of Y movement?
   private readonly _gravity: number = 0.75; // guessing this is how many pixels player fals per frame?
   private _yVelocity: number = 0;
@@ -47,7 +48,7 @@ export default class Player implements Drawable, Updateable, Positionable, Actio
     this._currentSprite = "walking";
     this._currentAnimationFrame = 0;
     this._sprites = {};
-
+    this._playerState = PlayerState.RUNNING;
     this._allImagesLoaded = false;
     this.loadAllAnimations();
   }
@@ -107,7 +108,8 @@ export default class Player implements Drawable, Updateable, Positionable, Actio
   translate(): void {
     this.nextYPosition += this._yVelocity;
     this.currentYPosition = this.nextYPosition;
-    if (Math.round(this.currentYPosition) >= 310) { // TODO Change
+    if(Math.round(this.currentYPosition) >= 310) { // TODO Change the static value
+      this._playerState = PlayerState.RUNNING;
       this._yVelocity = 0;
       this.nextYPosition = 310;
     } else {
@@ -122,9 +124,17 @@ export default class Player implements Drawable, Updateable, Positionable, Actio
    * a single method on the interface
    */
   action(): void {
-    this._currentAnimationFrame = 0; // reset animation frame
-    this._yVelocity = this._startYVelocity;
-    // TODO Set state as Mid-Jump and also change current sprite to jumping animation
+    if(this._playerState != PlayerState.JUMPING) {
+      this._currentAnimationFrame = 0; // reset animation frame
+      this._yVelocity = this._startYVelocity;
+      this._playerState = PlayerState.JUMPING;
+      // TODO change current sprite to jumping animation
+    }
   }
 
+}
+
+enum PlayerState {
+  RUNNING,
+  JUMPING
 }

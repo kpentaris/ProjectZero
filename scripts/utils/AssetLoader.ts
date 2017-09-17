@@ -2,7 +2,7 @@
  * @author KPentaris - 22/3/2017.
  */
 
-import {Assets} from "../config/assets";
+import {Assets} from "../config/Assets";
 /**
  * Asset loader utility singleton.
  * Handles loading all assets asynchronously
