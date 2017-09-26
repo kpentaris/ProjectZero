@@ -69,7 +69,7 @@ export default class UtilFunctions {
     return sum / shape.size;
   }
 
-  private static pointToPointDistance(x: number, y: number, x1: number, y1: number): number {
+  public static pointToPointDistance(x: number, y: number, x1: number, y1: number): number {
     return Math.sqrt(Math.pow(x1 - x, 2) + Math.pow(y1 - y, 2));
   }
 
