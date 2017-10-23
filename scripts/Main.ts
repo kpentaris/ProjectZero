@@ -24,10 +24,11 @@ let globalGame: GameObject = (function main(): GameObject {
   let actionmanager: ActionManager = new ActionManager([player], canvas, context);
 
   game.updateables = [];
-  game.registerUpdateable(player);
-  game.registerUpdateable(background);
-  game.registerDrawable(player);
-  game.registerDrawable(background);
+  game.drawables = [];
+  // game.registerUpdateable(player);
+  // game.registerUpdateable(background);
+  // game.registerDrawable(player);
+  // game.registerDrawable(background);
 
   canvas.width = 320;
   canvas.height = 480;
@@ -56,7 +57,7 @@ let globalGame: GameObject = (function main(): GameObject {
   }
 
   function render() {
-    globalGame.ctx.fillRect(0, 0, globalGame.canvas.width, globalGame.canvas.height); // this cleans the canvas
+    // globalGame.ctx.fillRect(0, 0, globalGame.canvas.width, globalGame.canvas.height); // this cleans the canvas
 
     globalGame.drawables.sort((a, b) => a.layer() < b.layer() ? 0 : 1).forEach(drawable => drawable.draw());
   }
